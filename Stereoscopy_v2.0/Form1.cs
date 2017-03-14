@@ -469,7 +469,7 @@ namespace Stereoscopy_v2._0
                                             "Размер светочувствительного элемента - {3} мкм\n"+
                                             "Фокусное расстояние объектива - {4} мм\n",AngleView1,WidthMatrix1 * Math.Pow(10, 3), HighMatrix1 * Math.Pow(10, 3), Math.Round(PixelSize1 * Math.Pow(10, 6),2), Focus1* Math.Pow(10, 3));
 
-                if (!checkBox1.Enabled)
+                if (!checkBox1.Checked)
                 {
                         label2.Text = string.Format("Угол обзора камеры - {0} градусов\n" +
                                             "Ширина матрицы - {1} мм\n" +
