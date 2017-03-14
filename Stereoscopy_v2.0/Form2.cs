@@ -16,7 +16,7 @@ namespace Stereoscopy_v2._0
         {
             InitializeComponent();
             Bitmap btmFront = new Bitmap(1155, 606);     //фон
-            Graphics grFront = Graphics.FromImage(btmFront);  //лучше объявить заранее глобально.
+            Graphics grFront = Graphics.FromImage(btmFront);  
             pictureBox1.Image = btmFront;
             Pen pen = new Pen(Color.FromArgb(150, 255, 0, 0));
             //camera 1
@@ -39,8 +39,6 @@ namespace Stereoscopy_v2._0
 
             //view 1
             grFront.DrawRectangle(pen,0,pictureBox1.Height-100,pictureBox1.Width-1,99);
-            // grFront.DrawRectangle(pen, LeftDisplayBorder, 500, ScreenWidth, 100);
-            //   grFront.DrawRectangle(pen, RightDisplayBorder, 500, ScreenWidth, 100);
 
             //distance line
             grFront.DrawLine(pen, pictureBox1.Width / 2 + 170, pictureBox1.Bottom / 2 + 120, pictureBox1.Width / 2 + 170, 100);
@@ -50,11 +48,19 @@ namespace Stereoscopy_v2._0
             try
             {
                 grFront.DrawArc(pen, pictureBox1.Width/2 - 20 + Form1.Xleft*40/Form1.HorResol1, 100, 4, 4, 0, 360);
-                //in polig
+                //in rect
                 //cam1
                 grFront.DrawArc(pen, 0 + Form1.Xleft*135/Form1.HorResol1, pictureBox1.Bottom/2 + 150, 4, 4, 0, 360);
                 //cam2
-                grFront.DrawArc(pen, 145 + Form1.Xright*135/Form1.HorResol1, pictureBox1.Bottom/2 + 150, 4, 4, 0, 360);
+                if (Form1.HorResol2 == 0)
+                {
+                    grFront.DrawArc(pen, 145 + Form1.Xright*135/Form1.HorResol1, pictureBox1.Bottom/2 + 150, 4, 4, 0,360);
+                }
+                else
+                {
+                    grFront.DrawArc(pen, 145 + Form1.Xright * 135 / Form1.HorResol2, pictureBox1.Bottom / 2 + 150, 4, 4, 0, 360);
+                }
+                
             }
             catch (DivideByZeroException)
             {

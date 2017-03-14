@@ -37,6 +37,7 @@ namespace Stereoscopy_v2._0
         int VerticalPixelAmount2 = 0;
         double RotationAngle1 = 0;
         double RotationAngle2 = 0;
+        static int Xcords;
 
         static private List<Control> listtextbox = new List<Control>();
 
@@ -407,6 +408,7 @@ namespace Stereoscopy_v2._0
         }
         private void button1_Click(object sender, EventArgs e)
         {
+
             for (int i = 0; i < listtextbox.Count; i++)
             {
                 if (listtextbox[i].Enabled && listtextbox[i].Text == "")
@@ -418,6 +420,7 @@ namespace Stereoscopy_v2._0
                    listtextbox[i].BackColor = Color.White;
                 }
             }
+           
 
             if (Xleft == Xright)
                 {
@@ -466,11 +469,15 @@ namespace Stereoscopy_v2._0
                                             "Размер светочувствительного элемента - {3} мкм\n"+
                                             "Фокусное расстояние объектива - {4} мм\n",AngleView1,WidthMatrix1 * Math.Pow(10, 3), HighMatrix1 * Math.Pow(10, 3), Math.Round(PixelSize1 * Math.Pow(10, 6),2), Focus1* Math.Pow(10, 3));
 
-                label2.Text = string.Format("Угол обзора камеры - {0} градусов\n" +
-                                            "Ширина матрицы - {1} мм\n"+
+                if (!checkBox1.Enabled)
+                {
+                        label2.Text = string.Format("Угол обзора камеры - {0} градусов\n" +
+                                            "Ширина матрицы - {1} мм\n" +
                                             "Высота матрицы - {2} мм\n" +
                                             "Размер светочувствительного элемента - {3} мкм\n" +
                                             "Фокусное расстояние объектива - {4} мм\n", AngleView2, WidthMatrix2 * Math.Pow(10, 3), HighMatrix2 * Math.Pow(10, 3), Math.Round(PixelSize2 * Math.Pow(10, 6), 2), Focus2 * Math.Pow(10, 3));
+                }
+                
 
                 label3.Text = string.Format("Расстояние до цели - {0} метра\n" +
                                             "\n" + 
@@ -482,16 +489,77 @@ namespace Stereoscopy_v2._0
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text == "")
+            if (textBox1.Text == "" || textBox1.Text =="0")
             {
                 MessageBox.Show("Введите разрешение снимка");
             }
             else { 
-            Form2 form = new Form2();
-            form.Show();
+                Form2 form = new Form2();
+                form.Show();
             }
         }
 
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (textBox1.Text == "" || HorResol1 == 0)
+            {
+                textBox1.BackColor = Color.Brown;
+                MessageBox.Show("Запоните поле 'Разрешение по горизонтали'");
+                
+            }
+            else
+            {
+                textBox1.BackColor = Color.White;
+                openFileDialog1.Filter = "BMP|*.bmp|GIF|*.gif|JPG|*.jpg;*.jpeg|PNG|*.png|TIFF|*.tif;*.tiff";
+                openFileDialog1.ShowDialog();
 
+                Image imageLeft = Image.FromFile(openFileDialog1.FileName);
+
+                int width = imageLeft.Size.Width;
+                int height = imageLeft.Height;
+
+                Form3 form3 = new Form3();
+                form3.Width = width;
+                form3.Height = height;
+
+                form3.ThePicture.Height = height;
+                form3.ThePicture.Width = width;
+
+                form3.ThePicture.Image = imageLeft;
+                form3.ShowDialog();
+                Xleft = Xcords;
+                textBox15.Text = Xleft.ToString();
+
+                do
+                {
+                   
+                    openFileDialog1.FileName = "";
+                    if (Xright >= Xleft)
+                    {
+                        MessageBox.Show("Координата правого снимка не может быть больше либо равной координате левого снимка. Выберите координату объекта заново на правом снимке.");
+                    }
+                    Xright = 0;
+                    openFileDialog1.ShowDialog();
+                    if (openFileDialog1.FileName == "")
+                    {
+                        break;
+                    }
+                    Image imageRight = Image.FromFile(openFileDialog1.FileName);
+                    form3.ThePicture.Image = imageRight;
+                    form3.ShowDialog();
+                    
+
+                    Xright = Xcords;
+
+                } while (Xright >= Xleft);
+
+                textBox14.Text = Xright.ToString();
+            }
+        }
+
+        public void X(int x )
+        {
+            Xcords = x;
+        }
     }
 }
