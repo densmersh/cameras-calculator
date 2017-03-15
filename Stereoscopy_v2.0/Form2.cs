@@ -37,6 +37,11 @@ namespace Stereoscopy_v2._0
 
             grFront.DrawRectangle(pen, 145, pictureBox1.Bottom / 2 + 80, 140, 95);
 
+            //camera 3
+            grFront.DrawRectangle(pen, 10, pictureBox1.Bottom -25, 20, 10);
+            grFront.DrawArc(pen, pictureBox1.Width - 20, pictureBox1.Bottom -(int)(Form1.Yleft*50/Form1.VertResol1), 4, 4, 0, 360);
+
+
             //view 1
             grFront.DrawRectangle(pen,0,pictureBox1.Height-100,pictureBox1.Width-1,99);
 

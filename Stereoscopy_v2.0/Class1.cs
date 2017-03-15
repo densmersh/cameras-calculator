@@ -18,6 +18,7 @@ namespace Stereoscopy_v2._0
 
         public double Distance(double WidthBase, int Resolution, double Angle,int Xleft,int Xright)
         {
+            
             double Distance = Math.Round(WidthBase * Resolution / (2 * Math.Tan(Angle / (2 * 180 / Math.PI)) * (Xleft - Xright)));
             return Distance;
         }

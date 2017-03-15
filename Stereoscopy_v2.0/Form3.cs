@@ -13,7 +13,9 @@ namespace Stereoscopy_v2._0
     public partial class Form3 : Form
     {
 
-        public int relativePoint = 0;
+        public int relativePointX = 0;
+        public int relativePointY = 0;
+
 
         public Form3()
         {
@@ -27,9 +29,11 @@ namespace Stereoscopy_v2._0
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-            relativePoint = PointToClient(Cursor.Position).X;
+            relativePointX = PointToClient(Cursor.Position).X;
+            relativePointY = PointToClient(Cursor.Position).Y;
+
             Form1 form1 = new Form1();
-            form1.X(relativePoint);
+            form1.XY(relativePointX,relativePointY);
             Close();
         }
     }

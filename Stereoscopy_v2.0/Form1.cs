@@ -1,59 +1,58 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Runtime.Remoting.Messaging;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Stereoscopy_v2._0
 {
     public partial class Form1 : Form
     {
-        public static int HorResol1 = 0;
-        public static int HorResol2 = 0;
-        double AngleView1 = 0;
-        double AngleView2 = 0;
-        int HorPixelAmount1 = 0;
-        int HorPixelAmount2 = 0;
-        double PixelSize1 = 0;
-        double PixelSize2 = 0;
-        double Focus1 = 0;
-        double Focus2 = 0;
-        public static int Xleft = 0;
-        public static int Xright = 0;
-       
-        double WidthBase = 0;
-        public static double Distance = 0;
-        public static double DeadZone = 0;
-        double WidthMatrix1 = 0;
-        double HighMatrix1 = 0;
-        double WidthMatrix2 = 0;
-        double HighMatrix2 = 0;
-        int VerticalPixelAmount1 = 0;
-        int VerticalPixelAmount2 = 0;
-        double RotationAngle1 = 0;
-        double RotationAngle2 = 0;
-        static int Xcords;
+        public static int HorResol1;
+        public static int HorResol2;
+        public static int VertResol1;
+        public static int VertResol2;
+        public static int Xleft;
+        public static int Xright;
 
-        static private List<Control> listtextbox = new List<Control>();
+        public static int Yleft;
+        public static int Yright;
+        public static double Distance;
+        public static double DeadZone;
+        private static int CordsX;
+        private static int CordsY;
 
-        Class1 calc = new Class1();
+        private static readonly List<Control> listtextbox = new List<Control>();
+
+        private readonly Class1 calc = new Class1();
+        private double AngleView1;
+        private double AngleView2;
+        private double Focus1;
+        private double Focus2;
+        private double HighMatrix1;
+        private double HighMatrix2;
+        private int HorPixelAmount1;
+        private int HorPixelAmount2;
+        private double PixelSize1;
+        private double PixelSize2;
+        private double RotationAngle1;
+        private double RotationAngle2;
+        private int VerticalPixelAmount1;
+        private int VerticalPixelAmount2;
+
+        private double WidthBase;
+        private double WidthMatrix1;
+        private double WidthMatrix2;
 
         public Form1()
         {
             InitializeComponent();
-            comboBox1.Items.AddRange(new string[] {"1/2", "1/3", "2/3"});
-            comboBox2.Items.AddRange(new string[] {"1/2", "1/3", "2/3"});
-            GetAllTypedControls(this, listtextbox, typeof(TextBox));
+            comboBox1.Items.AddRange(new[] {"1/2", "1/3", "2/3"});
+            comboBox2.Items.AddRange(new[] {"1/2", "1/3", "2/3"});
+            GetAllTypedControls(this, listtextbox, typeof (TextBox));
         }
 
-        
 
-        void GetAllTypedControls(Control ctrl, List<Control> controls, Type type)
+        private void GetAllTypedControls(Control ctrl, List<Control> controls, Type type)
         {
             // Работаем только с элементами искомого типа   
             if (ctrl.GetType() == type)
@@ -83,6 +82,7 @@ namespace Stereoscopy_v2._0
         {
             HorPixelAmount1 = Convert.ToInt32(Inspect(textBox3.Text));
         }
+
         public double Inspect(string Text)
         {
             double textbox = 0;
@@ -112,9 +112,11 @@ namespace Stereoscopy_v2._0
                 textBox10.Enabled = false;
                 comboBox2.Enabled = false;
                 checkBox3.Enabled = false;
+                textBox21.Enabled = false;
             }
             else
             {
+                textBox21.Enabled = true;
                 textBox4.Enabled = true;
                 textBox5.Enabled = true;
                 checkBox3.Enabled = true;
@@ -154,7 +156,6 @@ namespace Stereoscopy_v2._0
                 textBox10.Enabled = false;
                 textBox13.Enabled = false;
                 comboBox2.Enabled = false;
-
             }
             else
             {
@@ -186,16 +187,15 @@ namespace Stereoscopy_v2._0
                     break;
 
                 case 1:
-                    WidthMatrix1 = 4.8 * Math.Pow(10, -3);
-                    HighMatrix1 = 3.6 * Math.Pow(10, -3);
+                    WidthMatrix1 = 4.8*Math.Pow(10, -3);
+                    HighMatrix1 = 3.6*Math.Pow(10, -3);
                     break;
 
                 case 2:
-                    WidthMatrix1 = 8.8 * Math.Pow(10, -3);
-                    HighMatrix1 = 6.6 * Math.Pow(10, -3);
+                    WidthMatrix1 = 8.8*Math.Pow(10, -3);
+                    HighMatrix1 = 6.6*Math.Pow(10, -3);
                     break;
             }
-
         }
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
@@ -212,18 +212,18 @@ namespace Stereoscopy_v2._0
             switch (comboBox2.SelectedIndex)
             {
                 case 0:
-                    WidthMatrix2 = 6.4 * Math.Pow(10, -3);
-                    HighMatrix2 = 4.8 * Math.Pow(10, -3);
+                    WidthMatrix2 = 6.4*Math.Pow(10, -3);
+                    HighMatrix2 = 4.8*Math.Pow(10, -3);
                     break;
 
                 case 1:
-                    WidthMatrix2 = 4.8 * Math.Pow(10, -3);
-                    HighMatrix2 = 3.6 * Math.Pow(10, -3);
+                    WidthMatrix2 = 4.8*Math.Pow(10, -3);
+                    HighMatrix2 = 3.6*Math.Pow(10, -3);
                     break;
 
                 case 2:
-                    WidthMatrix2 = 8.8 * Math.Pow(10, -3);
-                    HighMatrix2 = 6.6 * Math.Pow(10, -3);
+                    WidthMatrix2 = 8.8*Math.Pow(10, -3);
+                    HighMatrix2 = 6.6*Math.Pow(10, -3);
                     break;
             }
         }
@@ -238,12 +238,12 @@ namespace Stereoscopy_v2._0
             {
                 comboBox1.Enabled = true;
             }
-            PixelSize1 = Convert.ToDouble(Inspect(textBox6.Text)) * Math.Pow(10, -6); 
+            PixelSize1 = Convert.ToDouble(Inspect(textBox6.Text))*Math.Pow(10, -6);
         }
 
         private void textBox7_TextChanged(object sender, EventArgs e)
         {
-            Focus1 = Convert.ToDouble(Inspect(textBox7.Text)) * Math.Pow(10, -3);
+            Focus1 = Convert.ToDouble(Inspect(textBox7.Text))*Math.Pow(10, -3);
         }
 
         private void textBox4_TextChanged(object sender, EventArgs e)
@@ -271,12 +271,12 @@ namespace Stereoscopy_v2._0
             {
                 comboBox2.Enabled = true;
             }
-            PixelSize2 = Convert.ToDouble(Inspect(textBox9.Text)) * Math.Pow(10, -6);
+            PixelSize2 = Convert.ToDouble(Inspect(textBox9.Text))*Math.Pow(10, -6);
         }
 
         private void textBox8_TextChanged(object sender, EventArgs e)
         {
-            Focus2 = Convert.ToDouble(Inspect(textBox8.Text)) * Math.Pow(10, -3);
+            Focus2 = Convert.ToDouble(Inspect(textBox8.Text))*Math.Pow(10, -3);
         }
 
         private void textBox11_TextChanged(object sender, EventArgs e)
@@ -311,8 +311,19 @@ namespace Stereoscopy_v2._0
 
         private void textBox17_TextChanged(object sender, EventArgs e)
         {
-            RotationAngle2 = Convert.ToDouble(textBox17.Text);
+            RotationAngle2 = Convert.ToDouble(Inspect(textBox17.Text));
         }
+
+        private void textBox18_TextChanged(object sender, EventArgs e)
+        {
+            Yleft = Convert.ToInt32(Inspect(textBox18.Text));
+        }
+
+        private void textBox19_TextChanged(object sender, EventArgs e)
+        {
+            Yright = Convert.ToInt32(Inspect(textBox19.Text));
+        }
+
 
         private void textBox1_Click(object sender, EventArgs e)
         {
@@ -388,6 +399,7 @@ namespace Stereoscopy_v2._0
         {
             VerticalPixelAmount2 = Convert.ToInt32(Inspect(textBox13.Text));
         }
+
         private void textBox12_Click(object sender, EventArgs e)
         {
             textBox12.Clear();
@@ -402,123 +414,158 @@ namespace Stereoscopy_v2._0
         {
             textBox16.Clear();
         }
+
         private void textBox17_Click(object sender, EventArgs e)
         {
             textBox17.Clear();
         }
+
+        private void textBox18_Click(object sender, EventArgs e)
+        {
+            textBox18.Clear();
+        }
+
+        private void textBox19_Click(object sender, EventArgs e)
+        {
+            textBox19.Clear();
+        }
+
+        private void textBox20_TextChanged(object sender, EventArgs e)
+        {
+            VertResol1 = Convert.ToInt32(Inspect(textBox20.Text));
+        }
+
+        private void textBox21_TextChanged(object sender, EventArgs e)
+        {
+            VertResol2 = Convert.ToInt32(Inspect(textBox21.Text));
+        }
+
+        private void textBox20_Click(object sender, EventArgs e)
+        {
+            textBox20.Clear();
+        }
+
+        private void textBox21_Click(object sender, EventArgs e)
+        {
+            textBox21.Clear();
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
-
-            for (int i = 0; i < listtextbox.Count; i++)
+            for (var i = 0; i < listtextbox.Count; i++)
             {
                 if (listtextbox[i].Enabled && listtextbox[i].Text == "")
                 {
-                   listtextbox[i].BackColor = Color.Crimson;
+                    listtextbox[i].BackColor = Color.Crimson;
                 }
-                else if(listtextbox[i].Enabled && listtextbox[i].Text != "")
+                else if (listtextbox[i].Enabled && listtextbox[i].Text != "")
                 {
-                   listtextbox[i].BackColor = Color.White;
+                    listtextbox[i].BackColor = Color.White;
                 }
             }
-           
+
 
             if (Xleft == Xright)
+            {
+                MessageBox.Show("Ошибка.Координаты не могут быть одинаковыми");
+                textBox14.Clear();
+                textBox15.Clear();
+            }
+            if (!checkBox2.Checked)
+            {
+                AngleView1 = Math.Round(calc.AngleView(HorPixelAmount1, PixelSize1, Focus1), 3);
+                if (!textBox6.Enabled)
                 {
-                    MessageBox.Show("Ошибка.Координаты не могут быть одинаковыми");
-                    textBox14.Clear();
-                    textBox15.Clear();
-
+                    AngleView1 = Math.Round(calc.AngleViewD(WidthMatrix1, Focus1), 2);
+                    PixelSize1 = calc.SizeElement(WidthMatrix1, HorPixelAmount1);
                 }
-                if (!checkBox2.Checked)
+                else
                 {
-                    AngleView1 = Math.Round(calc.AngleView(HorPixelAmount1, PixelSize1, Focus1), 3);
-                    if (!textBox6.Enabled)
-                    {
-                        AngleView1 = Math.Round(calc.AngleViewD(WidthMatrix1, Focus1), 2);
-                        PixelSize1 = calc.SizeElement(WidthMatrix1, HorPixelAmount1);
-                    }
-                    else
-                    {
-                        WidthMatrix1 = PixelSize1*HorPixelAmount1;
-                        HighMatrix1 = PixelSize1*VerticalPixelAmount1;
-                    }
+                    WidthMatrix1 = PixelSize1*HorPixelAmount1;
+                    HighMatrix1 = PixelSize1*VerticalPixelAmount1;
                 }
+            }
 
-                if (!checkBox3.Checked)
+            if (!checkBox3.Checked)
+            {
+                AngleView2 = Math.Round(calc.AngleView(HorPixelAmount2, PixelSize2, Focus2), 3);
+                if (!textBox9.Enabled)
                 {
-                    AngleView2 = Math.Round(calc.AngleView(HorPixelAmount2, PixelSize2, Focus2), 3);
-                    if (!textBox9.Enabled)
-                    {
-                        AngleView2 = Math.Round(calc.AngleViewD(WidthMatrix2, Focus2), 2);
-                        PixelSize2 = calc.SizeElement(WidthMatrix2, HorPixelAmount2);
-                    }
-                    else
-                    {
-                        WidthMatrix2 = PixelSize2 * HorPixelAmount2;
-                        HighMatrix2 = PixelSize2 * VerticalPixelAmount2;
-                    }
+                    AngleView2 = Math.Round(calc.AngleViewD(WidthMatrix2, Focus2), 2);
+                    PixelSize2 = calc.SizeElement(WidthMatrix2, HorPixelAmount2);
                 }
-
-                Distance = Math.Round(calc.Distance(WidthBase, HorResol1, AngleView1, Xleft, Xright), 2);
-                DeadZone = Math.Round(calc.Deadzone(WidthBase, AngleView1), 2);
-                int Disparity = calc.Disparity(Xleft, Xright);
-
-                label1.Text = string.Format("Угол обзора камеры - {0} градусов\n"+
-                                            "Ширина матрицы - {1} мм\n"+
-                                            "Высота матрицы - {2} мм\n"+
-                                            "Размер светочувствительного элемента - {3} мкм\n"+
-                                            "Фокусное расстояние объектива - {4} мм\n",AngleView1,WidthMatrix1 * Math.Pow(10, 3), HighMatrix1 * Math.Pow(10, 3), Math.Round(PixelSize1 * Math.Pow(10, 6),2), Focus1* Math.Pow(10, 3));
-
-                if (!checkBox1.Checked)
+                else
                 {
-                        label2.Text = string.Format("Угол обзора камеры - {0} градусов\n" +
+                    WidthMatrix2 = PixelSize2*HorPixelAmount2;
+                    HighMatrix2 = PixelSize2*VerticalPixelAmount2;
+                }
+            }
+
+            Distance = Math.Round(calc.Distance(WidthBase, HorResol1, AngleView1, Xleft, Xright), 2);
+            DeadZone = Math.Round(calc.Deadzone(WidthBase, AngleView1), 2);
+            var Disparity = calc.Disparity(Xleft, Xright);
+
+            label1.Text = string.Format("Угол обзора камеры - {0} градусов\n" +
+                                         "Ширина матрицы - {1} мм\n" +
+                                         "Высота матрицы - {2} мм\n" +
+                                         "Размер светочувствительного элемента - {3} мкм\n" +
+                                         "Фокусное расстояние объектива - {4} мм\n", AngleView1,
+                 WidthMatrix1 * Math.Pow(10, 3), HighMatrix1 * Math.Pow(10, 3), Math.Round(PixelSize1 * Math.Pow(10, 6), 2),
+                 Focus1 * Math.Pow(10, 3));
+
+            if (!checkBox1.Checked)
+            {
+                label2.Text = string.Format("Угол обзора камеры - {0} градусов\n" +
                                             "Ширина матрицы - {1} мм\n" +
                                             "Высота матрицы - {2} мм\n" +
                                             "Размер светочувствительного элемента - {3} мкм\n" +
-                                            "Фокусное расстояние объектива - {4} мм\n", AngleView2, WidthMatrix2 * Math.Pow(10, 3), HighMatrix2 * Math.Pow(10, 3), Math.Round(PixelSize2 * Math.Pow(10, 6), 2), Focus2 * Math.Pow(10, 3));
-                }
-                
+                                            "Фокусное расстояние объектива - {4} мм\n", AngleView2,
+                    WidthMatrix2*Math.Pow(10, 3), HighMatrix2*Math.Pow(10, 3), Math.Round(PixelSize2*Math.Pow(10, 6), 2),
+                    Focus2*Math.Pow(10, 3));
+            }
 
-                label3.Text = string.Format("Расстояние до цели - {0} метра\n" +
-                                            "\n" + 
-                                            "Мертвая зона - {1} метра"+
-                                            "\n"+
-                                            "Диспаратность - {2} пикселей"+
-                                            "\n",Distance, DeadZone,Disparity );
+
+            label3.Text = string.Format("Расстояние до цели - {0} метра\n" +
+                                        "\n" +
+                                        "Мертвая зона - {1} метра" +
+                                        "\n" +
+                                        "Диспаратность - {2} пикселей" +
+                                        "\n", Distance, DeadZone, Disparity);
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text == "" || textBox1.Text =="0")
+            if (textBox1.Text == "" || textBox1.Text == "0")
             {
                 MessageBox.Show("Введите разрешение снимка");
             }
-            else { 
-                Form2 form = new Form2();
+            else
+            {
+                var form = new Form2();
                 form.Show();
             }
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text == "" || HorResol1 == 0)
+            Xleft = 0;
+            Xright = 0;
+            Yleft = 0;
+            Yright = 0;
+            openFileDialog1.Filter = "BMP|*.bmp|GIF|*.gif|JPG|*.jpg;*.jpeg|PNG|*.png|TIFF|*.tif;*.tiff";
+            openFileDialog1.ShowDialog();
+            try
             {
-                textBox1.BackColor = Color.Brown;
-                MessageBox.Show("Запоните поле 'Разрешение по горизонтали'");
-                
-            }
-            else
-            {
-                textBox1.BackColor = Color.White;
-                openFileDialog1.Filter = "BMP|*.bmp|GIF|*.gif|JPG|*.jpg;*.jpeg|PNG|*.png|TIFF|*.tif;*.tiff";
-                openFileDialog1.ShowDialog();
+                var imageLeft = Image.FromFile(openFileDialog1.FileName);
 
-                Image imageLeft = Image.FromFile(openFileDialog1.FileName);
+                var width = imageLeft.Size.Width;
+                HorResol1 = width;
+                textBox1.Text = HorResol1.ToString();
+                var height = imageLeft.Height;
+                VertResol1 = height;
+                textBox20.Text = VertResol1.ToString();
 
-                int width = imageLeft.Size.Width;
-                int height = imageLeft.Height;
-
-                Form3 form3 = new Form3();
+                var form3 = new Form3();
                 form3.Width = width;
                 form3.Height = height;
 
@@ -527,16 +574,18 @@ namespace Stereoscopy_v2._0
 
                 form3.ThePicture.Image = imageLeft;
                 form3.ShowDialog();
-                Xleft = Xcords;
+                Xleft = CordsX;
+                Yleft = CordsY;
                 textBox15.Text = Xleft.ToString();
+                textBox18.Text = Yleft.ToString();
 
                 do
                 {
-                   
                     openFileDialog1.FileName = "";
                     if (Xright >= Xleft)
                     {
-                        MessageBox.Show("Координата правого снимка не может быть больше либо равной координате левого снимка. Выберите координату объекта заново на правом снимке.");
+                        MessageBox.Show(
+                            "Координата правого снимка не может быть больше либо равной координате левого снимка. Выберите координату объекта заново на правом снимке.");
                     }
                     Xright = 0;
                     openFileDialog1.ShowDialog();
@@ -544,22 +593,35 @@ namespace Stereoscopy_v2._0
                     {
                         break;
                     }
-                    Image imageRight = Image.FromFile(openFileDialog1.FileName);
+                    var imageRight = Image.FromFile(openFileDialog1.FileName);
                     form3.ThePicture.Image = imageRight;
-                    form3.ShowDialog();
-                    
 
-                    Xright = Xcords;
+                    if (!checkBox1.Checked)
+                    {
+                        HorResol2 = imageRight.Width;
+                        textBox4.Text = HorResol2.ToString();
+                        VertResol2 = imageRight.Height;
+                        textBox21.Text = VertResol2.ToString();
+                    }
+
+                    form3.ShowDialog();
+                    Xright = CordsX;
+                    Yright = CordsY;
 
                 } while (Xright >= Xleft);
 
                 textBox14.Text = Xright.ToString();
+                textBox19.Text = Yright.ToString();
+            }
+            catch (Exception)
+            {
             }
         }
 
-        public void X(int x )
+        public void XY(int x, int y)
         {
-            Xcords = x;
+            CordsX = x;
+            CordsY = y;
         }
     }
 }
