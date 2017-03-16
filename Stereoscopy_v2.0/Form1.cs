@@ -104,23 +104,26 @@ namespace Stereoscopy_v2._0
         {
             if (checkBox1.Checked)
             {
-                textBox4.Enabled = false;
-                textBox5.Enabled = false;
-                textBox8.Enabled = false;
-                textBox9.Enabled = false;
-                textBox13.Enabled = false;
-                textBox10.Enabled = false;
-                comboBox2.Enabled = false;
-                checkBox3.Enabled = false;
-                textBox21.Enabled = false;
+                textBox4.Enabled = false; textBox4.BackColor = SystemColors.Window;
+                textBox5.Enabled = false; textBox5.BackColor = SystemColors.Window;
+                textBox8.Enabled = false; textBox8.BackColor = SystemColors.Window;
+                textBox9.Enabled = false; textBox9.BackColor = SystemColors.Window;
+                textBox13.Enabled = false; textBox10.BackColor = SystemColors.Window;
+                textBox10.Enabled = false; textBox10.BackColor = SystemColors.Window;
+                textBox13.Enabled = false; textBox13.BackColor = SystemColors.Window;
+                comboBox2.Enabled = false; comboBox2.BackColor = SystemColors.Window;
+                checkBox3.Enabled = false; checkBox3.BackColor = SystemColors.Window;
+                textBox21.Enabled = false; textBox21.BackColor = SystemColors.Window;
             }
             else
             {
-                textBox21.Enabled = true;
+                
                 textBox4.Enabled = true;
                 textBox5.Enabled = true;
+                textBox21.Enabled = true;
                 checkBox3.Enabled = true;
                 checkBox3.Checked = true;
+
             }
         }
 
@@ -129,15 +132,17 @@ namespace Stereoscopy_v2._0
             if (checkBox2.Checked)
             {
                 textBox2.Enabled = true;
-                textBox3.Enabled = false;
-                textBox12.Enabled = false;
-                textBox6.Enabled = false;
-                textBox7.Enabled = false;
-                comboBox1.Enabled = false;
+                textBox3.Enabled = false; textBox3.BackColor = SystemColors.Window;
+                textBox6.Enabled = false; textBox6.BackColor = SystemColors.Window;
+                textBox7.Enabled = false; textBox7.BackColor = SystemColors.Window;
+                textBox12.Enabled = false; textBox12.BackColor = SystemColors.Window;
+                comboBox1.Enabled = false; comboBox1.BackColor = SystemColors.Window;
+
+
             }
             else
             {
-                textBox2.Enabled = false;
+                textBox2.Enabled = false; textBox2.BackColor = SystemColors.Window;
                 textBox3.Enabled = true;
                 textBox6.Enabled = true;
                 textBox7.Enabled = true;
@@ -150,16 +155,16 @@ namespace Stereoscopy_v2._0
         {
             if (checkBox3.Checked)
             {
-                textBox5.Enabled = true;
-                textBox8.Enabled = false;
-                textBox9.Enabled = false;
-                textBox10.Enabled = false;
-                textBox13.Enabled = false;
+                textBox5.Enabled = true; 
+                textBox8.Enabled = false; textBox8.BackColor = SystemColors.Window;
+                textBox9.Enabled = false; textBox9.BackColor = SystemColors.Window;
+                textBox10.Enabled = false; textBox10.BackColor = SystemColors.Window;
+                textBox13.Enabled = false; textBox13.BackColor = SystemColors.Window;
                 comboBox2.Enabled = false;
             }
             else
             {
-                textBox5.Enabled = false;
+                textBox5.Enabled = false; textBox5.BackColor = SystemColors.Window;
                 textBox8.Enabled = true;
                 textBox9.Enabled = true;
                 textBox10.Enabled = true;
@@ -167,17 +172,35 @@ namespace Stereoscopy_v2._0
                 textBox13.Enabled = true;
             }
         }
+        private void comboBox1_TextChanged(object sender, EventArgs e)
+        {
+            if (comboBox1.Text == "")
+            {
+                textBox6.Enabled = true;
+            }
+        }
 
+        private void comboBox2_TextChanged(object sender, EventArgs e)
+        {
+            if (comboBox2.Text == "")
+            {
+                textBox9.Enabled = true;
+            }
+        }
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (comboBox1.SelectedItem.ToString() != "")
             {
+                textBox6.BackColor = SystemColors.Window;
                 textBox6.Enabled = false;
             }
             else
             {
+
                 textBox6.Enabled = true;
             }
+
+           
 
             switch (comboBox1.SelectedIndex)
             {
@@ -202,6 +225,7 @@ namespace Stereoscopy_v2._0
         {
             if (comboBox2.SelectedItem.ToString() != "")
             {
+                textBox9.BackColor = SystemColors.Window;
                 textBox9.Enabled = false;
             }
             else
@@ -464,6 +488,11 @@ namespace Stereoscopy_v2._0
                 }
             }
 
+            //if (comboBox1.Enabled && comboBox1.Text = "")
+            //{
+                
+            //}
+
 
             if (Xleft == Xright)
             {
@@ -623,5 +652,7 @@ namespace Stereoscopy_v2._0
             CordsX = x;
             CordsY = y;
         }
+
+
     }
 }
