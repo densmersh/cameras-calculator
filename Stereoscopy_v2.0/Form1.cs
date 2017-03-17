@@ -104,26 +104,33 @@ namespace Stereoscopy_v2._0
         {
             if (checkBox1.Checked)
             {
-                textBox4.Enabled = false; textBox4.BackColor = SystemColors.Window;
-                textBox5.Enabled = false; textBox5.BackColor = SystemColors.Window;
-                textBox8.Enabled = false; textBox8.BackColor = SystemColors.Window;
-                textBox9.Enabled = false; textBox9.BackColor = SystemColors.Window;
-                textBox13.Enabled = false; textBox10.BackColor = SystemColors.Window;
-                textBox10.Enabled = false; textBox10.BackColor = SystemColors.Window;
-                textBox13.Enabled = false; textBox13.BackColor = SystemColors.Window;
-                comboBox2.Enabled = false; comboBox2.BackColor = SystemColors.Window;
-                checkBox3.Enabled = false; checkBox3.BackColor = SystemColors.Window;
-                textBox21.Enabled = false; textBox21.BackColor = SystemColors.Window;
+                textBox4.Enabled = false;
+                textBox4.BackColor = SystemColors.Window;
+                textBox5.Enabled = false;
+                textBox5.BackColor = SystemColors.Window;
+                textBox8.Enabled = false;
+                textBox8.BackColor = SystemColors.Window;
+                textBox9.Enabled = false;
+                textBox9.BackColor = SystemColors.Window;
+                textBox13.Enabled = false;
+                textBox10.BackColor = SystemColors.Window;
+                textBox10.Enabled = false;
+                textBox10.BackColor = SystemColors.Window;
+                textBox13.Enabled = false;
+                textBox13.BackColor = SystemColors.Window;
+                comboBox2.Enabled = false;
+                comboBox2.BackColor = SystemColors.Window;
+                checkBox3.Enabled = false;
+                textBox21.Enabled = false;
+                textBox21.BackColor = SystemColors.Window;
             }
             else
             {
-                
                 textBox4.Enabled = true;
                 textBox5.Enabled = true;
                 textBox21.Enabled = true;
                 checkBox3.Enabled = true;
                 checkBox3.Checked = true;
-
             }
         }
 
@@ -132,17 +139,21 @@ namespace Stereoscopy_v2._0
             if (checkBox2.Checked)
             {
                 textBox2.Enabled = true;
-                textBox3.Enabled = false; textBox3.BackColor = SystemColors.Window;
-                textBox6.Enabled = false; textBox6.BackColor = SystemColors.Window;
-                textBox7.Enabled = false; textBox7.BackColor = SystemColors.Window;
-                textBox12.Enabled = false; textBox12.BackColor = SystemColors.Window;
-                comboBox1.Enabled = false; comboBox1.BackColor = SystemColors.Window;
-
-
+                textBox3.Enabled = false;
+                textBox3.BackColor = SystemColors.Window;
+                textBox6.Enabled = false;
+                textBox6.BackColor = SystemColors.Window;
+                textBox7.Enabled = false;
+                textBox7.BackColor = SystemColors.Window;
+                textBox12.Enabled = false;
+                textBox12.BackColor = SystemColors.Window;
+                comboBox1.Enabled = false;
+                comboBox1.BackColor = SystemColors.Window;
             }
             else
             {
-                textBox2.Enabled = false; textBox2.BackColor = SystemColors.Window;
+                textBox2.Enabled = false;
+                textBox2.BackColor = SystemColors.Window;
                 textBox3.Enabled = true;
                 textBox6.Enabled = true;
                 textBox7.Enabled = true;
@@ -155,16 +166,21 @@ namespace Stereoscopy_v2._0
         {
             if (checkBox3.Checked)
             {
-                textBox5.Enabled = true; 
-                textBox8.Enabled = false; textBox8.BackColor = SystemColors.Window;
-                textBox9.Enabled = false; textBox9.BackColor = SystemColors.Window;
-                textBox10.Enabled = false; textBox10.BackColor = SystemColors.Window;
-                textBox13.Enabled = false; textBox13.BackColor = SystemColors.Window;
+                textBox5.Enabled = true;
+                textBox8.Enabled = false;
+                textBox8.BackColor = SystemColors.Window;
+                textBox9.Enabled = false;
+                textBox9.BackColor = SystemColors.Window;
+                textBox10.Enabled = false;
+                textBox10.BackColor = SystemColors.Window;
+                textBox13.Enabled = false;
+                textBox13.BackColor = SystemColors.Window;
                 comboBox2.Enabled = false;
             }
             else
             {
-                textBox5.Enabled = false; textBox5.BackColor = SystemColors.Window;
+                textBox5.Enabled = false;
+                textBox5.BackColor = SystemColors.Window;
                 textBox8.Enabled = true;
                 textBox9.Enabled = true;
                 textBox10.Enabled = true;
@@ -172,6 +188,7 @@ namespace Stereoscopy_v2._0
                 textBox13.Enabled = true;
             }
         }
+
         private void comboBox1_TextChanged(object sender, EventArgs e)
         {
             if (comboBox1.Text == "")
@@ -187,6 +204,7 @@ namespace Stereoscopy_v2._0
                 textBox9.Enabled = true;
             }
         }
+
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (comboBox1.SelectedItem.ToString() != "")
@@ -196,11 +214,9 @@ namespace Stereoscopy_v2._0
             }
             else
             {
-
                 textBox6.Enabled = true;
             }
 
-           
 
             switch (comboBox1.SelectedIndex)
             {
@@ -341,11 +357,13 @@ namespace Stereoscopy_v2._0
         private void textBox18_TextChanged(object sender, EventArgs e)
         {
             Yleft = Convert.ToInt32(Inspect(textBox18.Text));
+            verticalBorders(Yleft, textBox18);
         }
 
         private void textBox19_TextChanged(object sender, EventArgs e)
         {
             Yright = Convert.ToInt32(Inspect(textBox19.Text));
+            verticalBorders(Yright, textBox19);
         }
 
 
@@ -490,7 +508,7 @@ namespace Stereoscopy_v2._0
 
             //if (comboBox1.Enabled && comboBox1.Text = "")
             //{
-                
+
             //}
 
 
@@ -535,12 +553,12 @@ namespace Stereoscopy_v2._0
             var Disparity = calc.Disparity(Xleft, Xright);
 
             label1.Text = string.Format("Угол обзора камеры - {0} градусов\n" +
-                                         "Ширина матрицы - {1} мм\n" +
-                                         "Высота матрицы - {2} мм\n" +
-                                         "Размер светочувствительного элемента - {3} мкм\n" +
-                                         "Фокусное расстояние объектива - {4} мм\n", AngleView1,
-                 WidthMatrix1 * Math.Pow(10, 3), HighMatrix1 * Math.Pow(10, 3), Math.Round(PixelSize1 * Math.Pow(10, 6), 2),
-                 Focus1 * Math.Pow(10, 3));
+                                        "Ширина матрицы - {1} мм\n" +
+                                        "Высота матрицы - {2} мм\n" +
+                                        "Размер светочувствительного элемента - {3} мкм\n" +
+                                        "Фокусное расстояние объектива - {4} мм\n", AngleView1,
+                WidthMatrix1*Math.Pow(10, 3), HighMatrix1*Math.Pow(10, 3), Math.Round(PixelSize1*Math.Pow(10, 6), 2),
+                Focus1*Math.Pow(10, 3));
 
             if (!checkBox1.Checked)
             {
@@ -636,7 +654,6 @@ namespace Stereoscopy_v2._0
                     form3.ShowDialog();
                     Xright = CordsX;
                     Yright = CordsY;
-
                 } while (Xright >= Xleft);
 
                 textBox14.Text = Xright.ToString();
@@ -653,6 +670,13 @@ namespace Stereoscopy_v2._0
             CordsY = y;
         }
 
-
+        private void verticalBorders(int border, TextBox textbox)
+        {
+            if (border > VertResol1)
+            {
+                MessageBox.Show("Вертикальная координата не может быть больше чем разрешение снимка");
+                textbox.Clear();
+            }
+        }
     }
 }
