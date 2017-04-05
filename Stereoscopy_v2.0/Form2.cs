@@ -59,7 +59,7 @@ namespace Stereoscopy_v2._0
                 //cam2
                 if (Form1.HorResol2 == 0)
                 {//if cameras the same to each other
-                    grFront.DrawArc(pen, 145 + Form1.Xright*135 /Form1.HorResol1, pictureBox1.Bottom/2 + 80 + Form1.Yright * 90 / Form1.VertResol1,50, 4, 0,360);
+                    grFront.DrawArc(pen, 145 + Form1.Xright*135 /Form1.HorResol1, pictureBox1.Bottom/2 + 80 + Form1.Yright * 90 / Form1.VertResol1,4, 4, 0,360);
                 }
                 else
                 { //not the same
@@ -80,5 +80,9 @@ namespace Stereoscopy_v2._0
 
         }
 
+        private void Form2_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

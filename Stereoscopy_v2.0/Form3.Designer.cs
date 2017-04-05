@@ -48,7 +48,7 @@
             this.ClientSize = new System.Drawing.Size(876, 492);
             this.Controls.Add(this.pictureBox1);
             this.Name = "Form3";
-            this.Text = "Form3";
+            this.Text = "Выберите объект измерения";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 

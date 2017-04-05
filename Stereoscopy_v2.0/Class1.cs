@@ -46,5 +46,12 @@ namespace Stereoscopy_v2._0
             int Disparity = Xleft - Xright;
             return Disparity;
         }
+
+        public double CalculateAccuracy(double Accuracy, double Distance)
+        {
+            double Absolut = Accuracy - Distance;
+            double Relative = Absolut / Accuracy * 100;
+            return Relative;
+        }
     }
 }

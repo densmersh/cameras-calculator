@@ -14,6 +14,9 @@ namespace Stereoscopy_v2._0
         public static int Xleft;
         public static int Xright;
 
+        public static double Accuracy;
+        public static double Relative;
+
         public static int Yleft;
         public static int Yright;
         public static double Distance;
@@ -487,13 +490,22 @@ namespace Stereoscopy_v2._0
             textBox20.Clear();
         }
 
+        private void textBox22_Click(object sender, EventArgs e)
+        {
+            textBox22.Clear();
+        }
         private void textBox21_Click(object sender, EventArgs e)
         {
             textBox21.Clear();
         }
-
+        private void textBox22_TextChanged(object sender, EventArgs e)
+        {
+            Accuracy = Convert.ToDouble(Inspect(textBox22.Text));
+        }
         private void button1_Click(object sender, EventArgs e)
         {
+            
+
             for (var i = 0; i < listtextbox.Count; i++)
             {
                 if (listtextbox[i].Enabled && listtextbox[i].Text == "")
@@ -505,12 +517,6 @@ namespace Stereoscopy_v2._0
                     listtextbox[i].BackColor = Color.White;
                 }
             }
-
-            //if (comboBox1.Enabled && comboBox1.Text = "")
-            //{
-
-            //}
-
 
             if (Xleft == Xright)
             {
@@ -577,7 +583,10 @@ namespace Stereoscopy_v2._0
                                         "Мертвая зона - {1} метра" +
                                         "\n" +
                                         "Диспаратность - {2} пикселей" +
-                                        "\n", Distance, DeadZone, Disparity);
+                                        "\n"
+                                        , Distance, DeadZone, Disparity);
+
+            textBox22.BackColor = SystemColors.Window;
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -676,6 +685,27 @@ namespace Stereoscopy_v2._0
             {
                 MessageBox.Show("Вертикальная координата не может быть больше чем разрешение снимка");
                 textbox.Clear();
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (textBox22.Text == "")
+            {
+                textBox22.BackColor = Color.Crimson;
+            }
+            else
+            {
+                textBox22.BackColor = SystemColors.Window;
+                Relative = calc.CalculateAccuracy(Accuracy, Distance);
+                label3.Text = string.Format("Расстояние до цели - {0} метра\n" +
+                                       "\n" +
+                                       "Мертвая зона - {1} метра" +
+                                       "\n" +
+                                       "Диспаратность - {2} пикселей" +
+                                       "\n" +
+                                       "Относительная погрешность - {3} %" +
+                                       "\n", Distance, DeadZone, calc.Disparity(Xleft, Xright), Math.Round(Relative,2));
             }
         }
     }
